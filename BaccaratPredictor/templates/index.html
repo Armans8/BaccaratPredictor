@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baccarat Outcome Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center my-4">
+            <div class="col-md-8 col-lg-6">
+                <div class="card main-card">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">Baccarat Predictor</h1>
+                        
+                        <!-- Input Buttons -->
+                        <div class="input-buttons mb-4 text-center">
+                            <button class="btn player-btn" onclick="addOutcome('P')">P</button>
+                            <button class="btn banker-btn" onclick="addOutcome('B')">B</button>
+                            <button class="btn tie-btn" onclick="addOutcome('T')">T</button>
+                        </div>
+                        
+                        <!-- Prediction Area -->
+                        <div class="prediction-area mb-4">
+                            <div class="row prediction-labels">
+                                <div class="col-6 text-center">
+                                    <span>Prediction</span>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <span>Opposite</span>
+                                </div>
+                            </div>
+                            
+                            <div class="prediction-bars">
+                                <div id="prediction-bar" class="prediction-bar 
+                                     {% if prediction == 'P' %}player-bg
+                                     {% elif prediction == 'B' %}banker-bg
+                                     {% else %}tie-bg{% endif %}"
+                                     style="width: {% if prediction == 'T' %}25%{% else %}50%{% endif %}">
+                                </div>
+                                <div id="opposite-bar" class="opposite-bar 
+                                     {% if opposite == 'P' %}player-bg
+                                     {% elif opposite == 'B' %}banker-bg
+                                     {% else %}tie-bg{% endif %}"
+                                     style="width: {% if prediction == 'T' %}75%{% else %}50%{% endif %}">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Function Buttons -->
+                        <div class="function-buttons row mb-4">
+                            <div class="col-6">
+                                <button class="btn btn-dark w-100" onclick="deletePrevious()">DELETE PREVIOUS</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-dark w-100" onclick="resetSession()">RESET SESSION</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Outcome History -->
+                        <div class="outcome-history">
+                            <div id="history-display" class="d-flex flex-wrap justify-content-center">
+                                {% for outcome in history %}
+                                <div class="outcome-box 
+                                     {% if outcome == 'P' %}player-bg
+                                     {% elif outcome == 'B' %}banker-bg
+                                     {% else %}tie-bg{% endif %}">
+                                    {{ outcome }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
